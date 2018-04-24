@@ -21,10 +21,10 @@ public class Autocomplete {
 		int prefixLen = prefix.length();
 		Term prefixTerm = new Term(prefix, 0);
 		int first = (BinarySearchDeluxe.firstIndexOf(suggestions, prefixTerm, Term.byPrefixOrder(prefixLen)));			
-			matches = new Term[(BinarySearchDeluxe.lastIndexOf(suggestions, prefixTerm, Term.byPrefixOrder(prefixLen))) - first + 1];
 			if(first == -1){
 				throw new NullPointerException();
-			}
+			}	
+			this.matches = new Term[(BinarySearchDeluxe.lastIndexOf(suggestions, prefixTerm, Term.byPrefixOrder(prefixLen))) - first + 1];
 			for(int i = 0; i < matches.length; i++){
 				matches[i] = suggestions[first++];
 			}
@@ -47,7 +47,7 @@ public class Autocomplete {
     public static void main(String[] args) {
 
     	 // read in the terms from a file
-        String filename = "movies.txt";
+        String filename = "cities.txt";
         In in = new In(filename);
         int n = in.readInt();
         Term[] terms = new Term[n];

@@ -47,20 +47,28 @@ public class Term implements Comparable<Term> {
 			public int compare(Term t1, Term t2) {
 				String first = t1.query;
 				String second = t2.query;
-				String firstPrefix = first.substring(0, prefixLen);
-				String secondPrefix = second.substring(0, prefixLen);
+				String firstPrefix = t1.query.substring(0, prefixLen);
+				String secondPrefix = t2.query.substring(0, prefixLen);
+				int firstLen = first.length();
+				int secondLen = second.length();
 				
 				//https://docs.oracle.com/javase/tutorial/java/data/comparestrings.html
-				if(firstPrefix.compareTo(secondPrefix) < 0){
-					return -1;
+				
+				if(firstLen >= prefixLen && secondLen < prefixLen){
+					return firstPrefix.compareToIgnoreCase(second);
 				}
-				if(firstPrefix.compareTo(secondPrefix) > 0){
-					return 1;
+				else if(firstLen < prefixLen && secondLen >= prefixLen){
+					return first.compareToIgnoreCase(secondPrefix);
 				}
-				else
-					return 0;
+				else if(firstLen >= prefixLen && secondLen >= prefixLen){
+					return firstPrefix.compareToIgnoreCase(secondPrefix);
 				}
-	        }
+				else 
+					return first.compareToIgnoreCase(second);
+				}
+			}
+		
+	    
 	    	
 
 	    // Compares the two terms in lexicographic order by query.
